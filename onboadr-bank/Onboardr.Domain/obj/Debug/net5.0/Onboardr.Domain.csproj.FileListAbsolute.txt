@@ -1,0 +1,12 @@
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboardr.Domain\bin\Debug\net5.0\Onboardr.Domain.deps.json
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboardr.Domain\bin\Debug\net5.0\Onboardr.Domain.dll
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboardr.Domain\bin\Debug\net5.0\ref\Onboardr.Domain.dll
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboardr.Domain\bin\Debug\net5.0\Onboardr.Domain.pdb
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboardr.Domain\obj\Debug\net5.0\Onboardr.Domain.csproj.AssemblyReference.cache
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboardr.Domain\obj\Debug\net5.0\Onboardr.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboardr.Domain\obj\Debug\net5.0\Onboardr.Domain.AssemblyInfoInputs.cache
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboardr.Domain\obj\Debug\net5.0\Onboardr.Domain.AssemblyInfo.cs
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboardr.Domain\obj\Debug\net5.0\Onboardr.Domain.csproj.CoreCompileInputs.cache
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboardr.Domain\obj\Debug\net5.0\Onboardr.Domain.dll
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboardr.Domain\obj\Debug\net5.0\ref\Onboardr.Domain.dll
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboardr.Domain\obj\Debug\net5.0\Onboardr.Domain.pdb

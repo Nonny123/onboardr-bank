@@ -1,0 +1,17 @@
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\bin\Debug\net5.0\Onboadr.Infrastructure.deps.json
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\bin\Debug\net5.0\Onboadr.Infrastructure.runtimeconfig.json
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\bin\Debug\net5.0\Onboadr.Infrastructure.runtimeconfig.dev.json
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\bin\Debug\net5.0\Onboadr.Infrastructure.dll
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\bin\Debug\net5.0\ref\Onboadr.Infrastructure.dll
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\bin\Debug\net5.0\Onboadr.Infrastructure.pdb
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\bin\Debug\net5.0\Onboardr.Domain.dll
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\bin\Debug\net5.0\Onboardr.Domain.pdb
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\obj\Debug\net5.0\Onboadr.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\obj\Debug\net5.0\Onboadr.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\obj\Debug\net5.0\Onboadr.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\obj\Debug\net5.0\Onboadr.Infrastructure.AssemblyInfo.cs
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\obj\Debug\net5.0\Onboadr.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\obj\Debug\net5.0\Onboadr.Infrastructure.dll
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\obj\Debug\net5.0\ref\Onboadr.Infrastructure.dll
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\obj\Debug\net5.0\Onboadr.Infrastructure.pdb
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\obj\Debug\net5.0\Onboadr.Infrastructure.genruntimeconfig.cache
