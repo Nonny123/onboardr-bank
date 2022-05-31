@@ -7,15 +7,14 @@ namespace Onboardr.Domain
     {
         public int Id { get; set; }
 
-        [MaxLength(20, ErrorMessage = "Phone number can not be longer than 50 characters")]
+        [Required]
+        [MaxLength(20)]
         public string PhoneNumber { get; set; }
 
-
         [Required]
-        [EmailAddress(ErrorMessage = "Enter valid email address")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password is required.")]
+        [Required]
         public string Password { get; set; }
 
         [Required]

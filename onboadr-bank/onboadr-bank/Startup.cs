@@ -11,8 +11,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Onboadr.Infrastructure.Configuration;
 using Onboadr.Infrastructure.Data;
+using Onboadr.Infrastructure.IRepository;
+using Onboadr.Infrastructure.Repository;
 
 namespace onboadr_bank
 {
@@ -41,12 +45,21 @@ namespace onboadr_bank
                         .AllowAnyHeader());
             });
 
+            //Configure Automapper
+            services.AddAutoMapper(typeof(MapperInitializer));
+
+            //configure DI/dependencies 
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "onboadr_bank", Version = "v1" });
             });
 
-            services.AddControllers();
+            //  Configure newtonsoftjson to prevent reference loop/cycling
+            services.AddControllers().AddNewtonsoftJson(op =>
+                op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

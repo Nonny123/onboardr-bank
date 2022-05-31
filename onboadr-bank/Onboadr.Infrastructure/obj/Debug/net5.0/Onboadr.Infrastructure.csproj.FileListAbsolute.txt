@@ -15,3 +15,4 @@ C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\ob
 C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\obj\Debug\net5.0\ref\Onboadr.Infrastructure.dll
 C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\obj\Debug\net5.0\Onboadr.Infrastructure.pdb
 C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\obj\Debug\net5.0\Onboadr.Infrastructure.genruntimeconfig.cache
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\Onboadr.Infrastructure\obj\Debug\net5.0\Onboadr.Infrastructure.csproj.CopyComplete

@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "2Uf2IOn3kGByRHHIET3rxpK+zfZt4Ach9DmZcr0DUATdRpnqAcSr3wir+JcLS1DMTH8b+dvO65CG0r/Ic7knww==",
+  "dgSpecHash": "IfrGxQAwx72+taRbZ4gvrJJAxuedjT9O2EQGiWiroemGmsQPPT6El2d+OPThl+RgPnZ0xRZmf5ff8XTuQBoDNQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\NONSO\\source\\repos\\onboardr-bank\\onboadr-bank\\Onboadr.Infrastructure\\Onboadr.Infrastructure.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\NONSO\\.nuget\\packages\\automapper\\10.1.0\\automapper.10.1.0.nupkg.sha512",
+    "C:\\Users\\NONSO\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.0\\automapper.extensions.microsoft.dependencyinjection.8.1.0.nupkg.sha512",
     "C:\\Users\\NONSO\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\NONSO\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\NONSO\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
@@ -66,7 +68,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.private.datacontractserialization\\4.3.0\\system.private.datacontractserialization.4.3.0.nupkg.sha512",
     "C:\\Users\\NONSO\\.nuget\\packages\\system.private.uri\\4.3.2\\system.private.uri.4.3.2.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection.emit\\4.3.0\\system.reflection.emit.4.3.0.nupkg.sha512",
+    "C:\\Users\\NONSO\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection.emit.ilgeneration\\4.3.0\\system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection.emit.lightweight\\4.3.0\\system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection.extensions\\4.3.0\\system.reflection.extensions.4.3.0.nupkg.sha512",
