@@ -17,6 +17,8 @@ using Onboadr.Infrastructure.Configuration;
 using Onboadr.Infrastructure.Data;
 using Onboadr.Infrastructure.IRepository;
 using Onboadr.Infrastructure.Repository;
+using Onboadr.Infrastructure.Services;
+using Onboadr.Infrastructure.Services.Interface;
 
 namespace onboadr_bank
 {
@@ -50,6 +52,8 @@ namespace onboadr_bank
 
             //configure DI/dependencies 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IBankService, BankService>();
+
 
             services.AddSwaggerGen(c =>
             {

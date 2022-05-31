@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Onboadr.Infrastructure.IRepository;
+using Onboadr.Infrastructure.Services.Interface;
 using Onboardr.Domain;
 using Onboardr.Domain.DTOs;
 
@@ -16,13 +17,15 @@ namespace onboadr_bank.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IBankService _bankService;
         private readonly IMapper _mapper;
-        
 
-        public CustomerController(IUnitOfWork unitOfWork, IMapper mapper)
+
+        public CustomerController(IUnitOfWork unitOfWork, IMapper mapper, IBankService bankService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _bankService = bankService;
         }
 
         [HttpGet]
@@ -41,7 +44,7 @@ namespace onboadr_bank.Controllers
             }
         }
 
-       
+
 
         [HttpGet("{id:int}", Name = "GetCustomer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -62,7 +65,7 @@ namespace onboadr_bank.Controllers
         public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerDTO customerDTO)
         {
             if (!ModelState.IsValid)
-            { 
+            {
                 return BadRequest(ModelState);
             }
 
@@ -75,13 +78,14 @@ namespace onboadr_bank.Controllers
         }
 
         [HttpGet]
+        [Route("get_banks")]
         public async Task<IActionResult> GetBanks()
         {
             try
             {
-                bankss = _bankService.GetFinanceNews(0);
-                var results = _mapper.Map<IList<CustomerDTO>>(banks);
-                return Ok(results);
+                var banks =  _bankService.GetBankDetails();
+                //var results = _mapper.Map<IList<CustomerDTO>>(banks);
+                return Ok(banks);
             }
             catch (Exception e)
             {

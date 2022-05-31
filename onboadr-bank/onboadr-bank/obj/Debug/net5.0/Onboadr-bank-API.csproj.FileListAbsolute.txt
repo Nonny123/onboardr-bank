@@ -66,3 +66,4 @@ C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\onboadr-bank\bin\Debug\ne
 C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\onboadr-bank\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\onboadr-bank\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\onboadr-bank\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\NONSO\source\repos\onboardr-bank\onboadr-bank\onboadr-bank\obj\Debug\net5.0\Onboadr-bank-API.csproj.CopyComplete

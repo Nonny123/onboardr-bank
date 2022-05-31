@@ -16,7 +16,7 @@ namespace Onboardr.Domain
         public string BankCode { get; set; }
     }
 
-    public class Data
+    public class BankDetails
     {
         [JsonProperty("result")]
         public List<Result> Result { get; set; }
