@@ -21,6 +21,13 @@ namespace Onboadr.Infrastructure.Repository
             _db = _context.Set<T>();
         }
 
+        public async Task<T> Get(Expression<Func<T, bool>> expression)
+        {
+            IQueryable<T> query = _db;
+           
+            return await query.AsNoTracking().FirstOrDefaultAsync(expression);
+        }
+
         public async Task<IList<T>> GetAll(Expression<Func<T, bool>> expression = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
         {
             IQueryable<T> query = _db;

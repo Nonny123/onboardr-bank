@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Onboadr.Infrastructure.IRepository;
+using Onboardr.Domain;
 using Onboardr.Domain.DTOs;
 
 namespace onboadr_bank.Controllers
@@ -38,6 +39,38 @@ namespace onboadr_bank.Controllers
                 Console.WriteLine(e);
                 return StatusCode(500, "Internal Server Error. Please Try Again Later.");
             }
+        }
+
+
+        [HttpGet("{id:int}", Name = "GetCustomer")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetCustomer(int id)
+        {
+
+            var customer = await _unitOfWork.Customers.Get(q => q.Id == id);
+            var result = _mapper.Map<CustomerDTO>(customer);
+            return Ok(result);
+
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerDTO customerDTO)
+        {
+            if (!ModelState.IsValid)
+            { 
+                return BadRequest(ModelState);
+            }
+
+            var customer = _mapper.Map<Customer>(customerDTO);
+            await _unitOfWork.Customers.Insert(customer);
+            await _unitOfWork.Save();
+
+            return CreatedAtRoute("GetCustomer", new { id = customer.Id }, customer);
+
         }
     }
 }
