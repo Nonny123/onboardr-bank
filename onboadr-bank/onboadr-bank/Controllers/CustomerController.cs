@@ -41,6 +41,7 @@ namespace onboadr_bank.Controllers
             }
         }
 
+       
 
         [HttpGet("{id:int}", Name = "GetCustomer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -71,6 +72,22 @@ namespace onboadr_bank.Controllers
 
             return CreatedAtRoute("GetCustomer", new { id = customer.Id }, customer);
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetBanks()
+        {
+            try
+            {
+                bankss = _bankService.GetFinanceNews(0);
+                var results = _mapper.Map<IList<CustomerDTO>>(banks);
+                return Ok(results);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, "Internal Server Error. Please Try Again Later.");
+            }
         }
     }
 }

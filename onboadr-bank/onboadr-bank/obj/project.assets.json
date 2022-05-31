@@ -1552,7 +1552,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "8.1.0"
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "8.1.0",
+          "Newtonsoft.Json": "10.0.1"
         },
         "compile": {
           "bin/placeholder/Onboardr.Domain.dll": {}
