@@ -19,6 +19,9 @@ namespace onboadr_bank.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IBankService _bankService;
         private readonly IMapper _mapper;
+        private IAuthFactor _authFactor;
+        private IOTPCodeRepository _otpCodeRepo;
+
 
 
         public CustomerController(IUnitOfWork unitOfWork, IMapper mapper, IBankService bankService)
@@ -53,7 +56,7 @@ namespace onboadr_bank.Controllers
         {
 
             var customer = await _unitOfWork.Customers.Get(q => q.Id == id);
-            var result = _mapper.Map<CustomerDTO>(customer);
+            var result = _mapper.Map<CusterDTO>(customer);
             return Ok(result);
 
         }
@@ -92,6 +95,999 @@ namespace onboadr_bank.Controllers
                 Console.WriteLine(e);
                 return StatusCode(500, "Internal Server Error. Please Try Again Later.");
             }
+        }
+         [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
+        } [HttpPost("send")]
+        public void Send([FromBody]OTPInfo otpInfo)
+        {
+            string optCode = GenerateOTP();
+
+            string msgToSMS = otpInfo.Message.Replace("%otpcode%", optCode);
+
+            if(_authFactor.SendCode(msgToSMS, otpInfo.RecipientPhoneNumber, otpInfo.FromPhoneNumber))
+            {
+                DateTime timeOTPCodeGen = DateTime.Now;
+
+                _otpCodeRepo.SaveSendCodeInfo
+                    (otpInfo.UniqueUserName, optCode,
+                     otpInfo.RecipientPhoneNumber, otpInfo.OTPExpiryInSeconds, timeOTPCodeGen);
+            }
+            else
+            {
+                //TODO: log error
+            }
+        }
+
+        [HttpGet("verify")]
+        public bool Verify(string uniqueUserName, string otpCode)
+        {
+            var optCodeInfo = _otpCodeRepo.GetOTPSentInfo(uniqueUserName, otpCode);
+
+            if(optCodeInfo == null)
+            {
+                //TODO: Log error
+                return false;
+            }
+            else
+            {
+                if(!IsOTPCodeExpired(optCodeInfo))
+                {
+                    optCodeInfo.Verified = true;
+                    optCodeInfo.CodeVerifiedAt = DateTime.Now;
+                    _otpCodeRepo.UpdateSendCodeInfo(optCodeInfo);
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+        }
+
+        private bool IsOTPCodeExpired(OTPCodeInfo codeInfo)
+        {
+           DateTime codeGenTime = codeInfo.OTPCodeGenTime;
+           int tokenExpiryInSec = codeInfo.OTPExpiryInSeconds;
+
+           if((DateTime.Now - codeGenTime).TotalSeconds <= tokenExpiryInSec)
+                return true;
+            else
+                return false;
+        }
+
+        private string GenerateOTP()
+        {
+            var generator = new Random();
+            String code = generator.Next(0, 999999).ToString("D6");
+            return code;
         }
     }
 }
