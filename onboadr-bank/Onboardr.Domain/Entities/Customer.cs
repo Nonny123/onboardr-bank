@@ -1,7 +1,8 @@
-﻿using System;
+﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace Onboardr.Domain
+
+namespace Onboardr.Domain.Entities
 {
     public class Customer
     {

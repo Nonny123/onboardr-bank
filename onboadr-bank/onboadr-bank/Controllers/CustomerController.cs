@@ -2,13 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Onboadr.Infrastructure.IRepository;
-using Onboadr.Infrastructure.Services.Interface;
-using Onboardr.Domain;
 using Onboardr.Domain.DTOs;
+using Onboardr.Domain.Entities;
+using Onboadr.Infrastructure.Repository.Interface;
+using onboadr_bank.Services.Interface;
 
 namespace onboadr_bank.Controllers
 {
@@ -17,18 +16,18 @@ namespace onboadr_bank.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IBankService _bankService;
+        private readonly IGetBanksService _getBanksService;
         private readonly IMapper _mapper;
         //private IAuthFactor _authFactor;
         //private IOTPCodeRepository _otpCodeRepo;
 
 
 
-        public CustomerController(IUnitOfWork unitOfWork, IMapper mapper, IBankService bankService)
+        public CustomerController(IUnitOfWork unitOfWork, IMapper mapper, IGetBanksService getBanksService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _bankService = bankService;
+            _getBanksService = getBanksService;
         }
 
         [HttpGet]
@@ -80,22 +79,22 @@ namespace onboadr_bank.Controllers
 
         }
 
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> ConfirmCustomerAccount([FromBody] string OTP)
-        {
+        //[HttpPost]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status201Created)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //public async Task<IActionResult> ConfirmCustomerAccount([FromBody] string OTP)
+        //{
 
-        }
+        //}
 
-            [HttpGet]
+        [HttpGet]
         [Route("get_banks")]
         public async Task<IActionResult> GetBanks()
         {
             try
             {
-                var banks =  _bankService.GetBankDetails();
+                var banks =  await _getBanksService.GetBankDetails();
                 //var results = _mapper.Map<IList<CustomerDTO>>(banks);
                 return Ok(banks);
             }

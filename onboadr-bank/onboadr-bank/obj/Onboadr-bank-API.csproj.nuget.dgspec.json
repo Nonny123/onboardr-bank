@@ -33,6 +33,9 @@
             "projectReferences": {
               "C:\\Users\\NONSO\\source\\repos\\onboardr-bank\\onboadr-bank\\Onboadr.Infrastructure\\Onboadr.Infrastructure.csproj": {
                 "projectPath": "C:\\Users\\NONSO\\source\\repos\\onboardr-bank\\onboadr-bank\\Onboadr.Infrastructure\\Onboadr.Infrastructure.csproj"
+              },
+              "C:\\Users\\NONSO\\source\\repos\\onboardr-bank\\onboadr-bank\\Onboardr.Domain\\Onboardr.Domain.csproj": {
+                "projectPath": "C:\\Users\\NONSO\\source\\repos\\onboardr-bank\\onboadr-bank\\Onboardr.Domain\\Onboardr.Domain.csproj"
               }
             }
           }

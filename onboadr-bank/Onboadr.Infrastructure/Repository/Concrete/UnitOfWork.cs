@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
+﻿using Onboadr.Infrastructure.Data;
+using Onboadr.Infrastructure.Repository.Interface;
+using Onboardr.Domain.Entities;
+using System;
 using System.Threading.Tasks;
-using Onboadr.Infrastructure.Data;
-using Onboadr.Infrastructure.IRepository;
-using Onboardr.Domain;
 
-namespace Onboadr.Infrastructure.Repository
+namespace Onboadr.Infrastructure.Repository.Concrete
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -27,7 +23,7 @@ namespace Onboadr.Infrastructure.Repository
         }
 
         public IGenericRepository<Customer> Customers => _customers ??= new GenericRepository<Customer>(_context);
-       
+
         public async Task Save()
         {
             await _context.SaveChangesAsync();

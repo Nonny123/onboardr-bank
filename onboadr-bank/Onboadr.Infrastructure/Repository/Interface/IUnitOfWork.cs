@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Onboardr.Domain.Entities;
+using System;
 using System.Threading.Tasks;
-using Onboardr.Domain;
 
-namespace Onboadr.Infrastructure.IRepository
+namespace Onboadr.Infrastructure.Repository.Interface
 {
     public interface IUnitOfWork : IDisposable
     {

@@ -1,27 +1,26 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using onboadr_bank.Services.Interface;
+using Onboardr.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using Onboadr.Infrastructure.Services.Interface;
-using Onboardr.Domain;
 
-namespace Onboadr.Infrastructure.Services
+namespace onboadr_bank.Services.Concrete
 {
-    public class BankService : IBankService
+    public class GetBanksService : IGetBanksService
     {
         private readonly IConfiguration _configuration;
 
-        public BankService(IConfiguration configuration)
+        public GetBanksService(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-       
 
-        public BankDetails GetBankDetails()
+
+        public async Task<BankDetails> GetBankDetails()
         {
             var subscriptionKey = _configuration.GetValue<string>("Subscription_Key");
             var baseUrl = _configuration.GetValue<string>("Api_Url");
@@ -34,11 +33,11 @@ namespace Onboadr.Infrastructure.Services
 
                 var url = "alat-test/api/Shared/GetAllBanks";
 
-                HttpResponseMessage response = client.GetAsync(url).Result;
+                HttpResponseMessage response = await client.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var result =  response.Content.ReadAsStringAsync().Result;
+                    var result = await response.Content.ReadAsStringAsync();
 
                     return JsonConvert.DeserializeObject<BankDetails>(result);
 
@@ -47,9 +46,9 @@ namespace Onboadr.Infrastructure.Services
                 {
                     return new BankDetails()
                     {
-                        
+
                         Result = new List<Result>()
-                       
+
                     };
                 }
             }

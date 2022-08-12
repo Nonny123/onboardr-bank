@@ -1,24 +1,20 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Onboadr.Infrastructure.Configuration;
 using Onboadr.Infrastructure.Data;
-using Onboadr.Infrastructure.IRepository;
-using Onboadr.Infrastructure.Repository;
-using Onboadr.Infrastructure.Services;
-using Onboadr.Infrastructure.Services.Interface;
+using Onboadr.Infrastructure.Repository.Interface;
+using Onboadr.Infrastructure.Repository.Concrete;
+using onboadr_bank.Services.Interface;
+using onboadr_bank.Services.Concrete;
 
 namespace onboadr_bank
 {
@@ -52,7 +48,7 @@ namespace onboadr_bank
 
             //configure DI/dependencies 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IBankService, BankService>();
+            services.AddScoped<IGetBanksService, GetBanksService>();
 
 
             services.AddSwaggerGen(c =>

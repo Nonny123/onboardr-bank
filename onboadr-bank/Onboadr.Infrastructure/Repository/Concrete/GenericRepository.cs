@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Onboadr.Infrastructure.Data;
+using Onboadr.Infrastructure.Repository.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Onboadr.Infrastructure.Data;
-using Onboadr.Infrastructure.IRepository;
 
-namespace Onboadr.Infrastructure.Repository
+namespace Onboadr.Infrastructure.Repository.Concrete
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T: class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private readonly DatabaseContext _context;
         private readonly DbSet<T> _db;
@@ -24,7 +24,7 @@ namespace Onboadr.Infrastructure.Repository
         public async Task<T> Get(Expression<Func<T, bool>> expression)
         {
             IQueryable<T> query = _db;
-           
+
             return await query.AsNoTracking().FirstOrDefaultAsync(expression);
         }
 

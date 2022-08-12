@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using Onboardr.Domain;
+﻿using AutoMapper;
 using Onboardr.Domain.DTOs;
+using Onboardr.Domain.Entities;
 
 namespace Onboadr.Infrastructure.Configuration
 {
