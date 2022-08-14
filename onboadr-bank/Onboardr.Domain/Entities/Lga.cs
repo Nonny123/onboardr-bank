@@ -9,13 +9,20 @@ namespace Onboardr.Domain.Entities
 {
     public class Lga
     {
+       
         public int LgaId { get; set; }
-        public string Name { get; set; }
 
-
+        
         [ForeignKey("StateId")]
         public int StateId { get; set; }
 
         public State State { get; set; }
+
+        
+        public string Name { get; set; }
+
+        
+
+        
     }
 }

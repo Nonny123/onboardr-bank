@@ -1,6 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Onboardr.Domain.Entities
 {
@@ -18,12 +18,16 @@ namespace Onboardr.Domain.Entities
         [Required]
         public string Password { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string StateOfResidence { get; set; }
+        [ForeignKey("StateId")]
+        public int StateId { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string LGA { get; set; }
+        public State State { get; set; }
+
+        [ForeignKey("LgaId")]
+        public int LgaId { get; set; }
+
+        public Lga Lga { get; set; }
+
+
     }
 }

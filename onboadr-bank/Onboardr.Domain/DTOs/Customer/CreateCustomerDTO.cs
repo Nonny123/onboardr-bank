@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Onboardr.Domain.DTOs
+namespace Onboardr.Domain.DTOs.Customer
 {
     public class CreateCustomerDTO
     {
@@ -17,11 +17,9 @@ namespace Onboardr.Domain.DTOs
         public string Password { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string StateOfResidence { get; set; }
+        public int StateId { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string LGA { get; set; }
+        public int LgaId { get; set; }
     }
 }

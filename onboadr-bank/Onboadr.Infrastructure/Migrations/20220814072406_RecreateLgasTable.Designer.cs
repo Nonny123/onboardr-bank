@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Onboadr.Infrastructure.Data;
 
 namespace Onboadr.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220814072406_RecreateLgasTable")]
+    partial class RecreateLgasTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,8 +31,10 @@ namespace Onboadr.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LgaId")
-                        .HasColumnType("int");
+                    b.Property<string>("LGA")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -41,14 +45,12 @@ namespace Onboadr.Infrastructure.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int>("StateId")
-                        .HasColumnType("int");
+                    b.Property<string>("StateOfResidence")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LgaId");
-
-                    b.HasIndex("StateId");
 
                     b.ToTable("Customers");
                 });
@@ -90,39 +92,15 @@ namespace Onboadr.Infrastructure.Migrations
                     b.ToTable("States");
                 });
 
-            modelBuilder.Entity("Onboardr.Domain.Entities.Customer", b =>
-                {
-                    b.HasOne("Onboardr.Domain.Entities.Lga", "Lga")
-                        .WithMany()
-                        .HasForeignKey("LgaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Onboardr.Domain.Entities.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Lga");
-
-                    b.Navigation("State");
-                });
-
             modelBuilder.Entity("Onboardr.Domain.Entities.Lga", b =>
                 {
                     b.HasOne("Onboardr.Domain.Entities.State", "State")
-                        .WithMany("Lgas")
+                        .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("State");
-                });
-
-            modelBuilder.Entity("Onboardr.Domain.Entities.State", b =>
-                {
-                    b.Navigation("Lgas");
                 });
 #pragma warning restore 612, 618
         }

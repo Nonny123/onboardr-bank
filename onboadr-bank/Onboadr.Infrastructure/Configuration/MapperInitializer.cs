@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Onboardr.Domain.DTOs;
+using Onboardr.Domain.DTOs.Customer;
 using Onboardr.Domain.Entities;
 
 namespace Onboadr.Infrastructure.Configuration

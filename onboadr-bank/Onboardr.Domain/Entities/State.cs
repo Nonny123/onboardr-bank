@@ -14,5 +14,7 @@ namespace Onboardr.Domain.Entities
         [Required]
         [MaxLength(25)]
         public string Name { get; set; }
+
+        public virtual IList<Lga> Lgas { get; set; }
     }
 }

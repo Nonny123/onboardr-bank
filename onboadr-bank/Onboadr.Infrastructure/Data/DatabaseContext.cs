@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using Onboadr.Infrastructure.Configuration.SeedingData;
 using Onboardr.Domain.Entities;
 
 namespace Onboadr.Infrastructure.Data
@@ -14,5 +15,13 @@ namespace Onboadr.Infrastructure.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<Lga> Lgas { get; set; }
+
+        //Seed Data
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            //builder.ApplyConfiguration(new LgaDataConfiguration());
+            
+        }
     }
 }

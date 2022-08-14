@@ -1,7 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Onboardr.Domain.DTOs
+
+namespace Onboardr.Domain.DTOs.Customer
 {
     public class CustomerDTO : CreateCustomerDTO
     {

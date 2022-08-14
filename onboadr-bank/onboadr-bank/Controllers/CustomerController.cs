@@ -8,6 +8,7 @@ using Onboardr.Domain.DTOs;
 using Onboardr.Domain.Entities;
 using Onboadr.Infrastructure.Repository.Interface;
 using onboadr_bank.Services.Interface;
+using Onboardr.Domain.DTOs.Customer;
 
 namespace onboadr_bank.Controllers
 {
@@ -68,6 +69,9 @@ namespace onboadr_bank.Controllers
         {
             if (!ModelState.IsValid)
             {
+                //get LgaId and check if it belongs to stateId
+                //else return lga not matching
+
                 return BadRequest(ModelState);
             }
 
