@@ -9,5 +9,7 @@ namespace onboadr_bank.Services.Interface
     public interface IGetBanksService
     {
         Task<BankDetails> GetBankDetails();
+
+        //Task<Post[]> GetPosts();
     }
 }

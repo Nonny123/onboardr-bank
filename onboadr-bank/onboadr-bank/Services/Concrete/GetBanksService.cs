@@ -47,11 +47,50 @@ namespace onboadr_bank.Services.Concrete
                     return new BankDetails()
                     {
 
-                        Result = new List<Result>()
+                        result = new Bank[0]
 
                     };
                 }
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+        //public async Task<Post[]> GetPosts()
+        //{
+            
+        //    //var baseUrl = _configuration.GetValue<string>("Api_Url");
+        //     var baseUrl = "https://my-json-server.typicode.com/";
+
+        //    using (var client = new HttpClient())
+        //    {
+        //        client.BaseAddress = new Uri(baseUrl);
+                
+        //        var url = "typicode/demo/posts";
+
+        //        HttpResponseMessage response = await client.GetAsync(url);
+
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            var result = await response.Content.ReadAsStringAsync();
+
+        //            return JsonConvert.DeserializeObject<Post[]>(result);
+
+        //        }
+        //        else
+        //        {
+        //            return new Post[0];
+                   
+        //        }
+        //    }
+        //}
     }
 }
