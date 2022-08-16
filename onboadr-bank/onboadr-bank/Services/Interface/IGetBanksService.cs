@@ -11,5 +11,9 @@ namespace onboadr_bank.Services.Interface
         Task<BankDetails> GetBankDetails();
 
         //Task<Post[]> GetPosts();
+        //Task<ComicModel> GetComic();
+        //Task<SunResultModel> GetSunRise();
+        
+        //Task<MailingListResult> GetMailingLists();
     }
 }

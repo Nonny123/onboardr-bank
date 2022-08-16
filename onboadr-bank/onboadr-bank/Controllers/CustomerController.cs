@@ -98,14 +98,14 @@ namespace onboadr_bank.Controllers
         {
             try
             {
-                var banks =  await _getBanksService.GetBankDetails();
+                var banks = await _getBanksService.GetBankDetails();
                 //var results = _mapper.Map<IList<CustomerDTO>>(banks);
                 return Ok(banks);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return StatusCode(500, "Internal Server Error. Please Try Again Later.");
+                return StatusCode(500, e.Message);
             }
         }
          
