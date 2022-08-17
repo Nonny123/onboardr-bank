@@ -3,64 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Onboadr.Infrastructure.Data;
 
 namespace Onboadr.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220816182624_CreateBankAccountTypeTable")]
+    partial class CreateBankAccountTypeTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
-
-            modelBuilder.Entity("Onboardr.Domain.Entities.BankAccount", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("AccountNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(18,4)");
-
-                    b.Property<int>("BankAccountTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<byte?>("BankAccountTypeId1")
-                        .HasColumnType("tinyint");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("Number")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BankAccountTypeId1");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("BankAccounts");
-                });
 
             modelBuilder.Entity("Onboardr.Domain.Entities.BankAccountType", b =>
                 {
@@ -169,23 +128,6 @@ namespace Onboadr.Infrastructure.Migrations
                     b.ToTable("States");
                 });
 
-            modelBuilder.Entity("Onboardr.Domain.Entities.BankAccount", b =>
-                {
-                    b.HasOne("Onboardr.Domain.Entities.BankAccountType", "BankAccountType")
-                        .WithMany()
-                        .HasForeignKey("BankAccountTypeId1");
-
-                    b.HasOne("Onboardr.Domain.Entities.Customer", "Customer")
-                        .WithMany("BankAccounts")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BankAccountType");
-
-                    b.Navigation("Customer");
-                });
-
             modelBuilder.Entity("Onboardr.Domain.Entities.Customer", b =>
                 {
                     b.HasOne("Onboardr.Domain.Entities.Lga", "Lga")
@@ -214,11 +156,6 @@ namespace Onboadr.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("State");
-                });
-
-            modelBuilder.Entity("Onboardr.Domain.Entities.Customer", b =>
-                {
-                    b.Navigation("BankAccounts");
                 });
 
             modelBuilder.Entity("Onboardr.Domain.Entities.State", b =>

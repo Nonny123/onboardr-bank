@@ -15,6 +15,8 @@ namespace Onboadr.Infrastructure.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<Lga> Lgas { get; set; }
+        public DbSet<BankAccountType> BankAccountTypes { get; set; }
+        public DbSet<BankAccount> BankAccounts { get; set; }
 
         //Seed Data
         protected override void OnModelCreating(ModelBuilder builder)

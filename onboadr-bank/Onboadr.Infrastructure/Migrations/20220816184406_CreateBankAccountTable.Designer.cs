@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Onboadr.Infrastructure.Data;
 
 namespace Onboadr.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220816184406_CreateBankAccountTable")]
+    partial class CreateBankAccountTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,9 +27,6 @@ namespace Onboadr.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
-
-                    b.Property<string>("AccountNo")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Balance")
                         .HasColumnType("decimal(18,4)");
@@ -176,7 +175,7 @@ namespace Onboadr.Infrastructure.Migrations
                         .HasForeignKey("BankAccountTypeId1");
 
                     b.HasOne("Onboardr.Domain.Entities.Customer", "Customer")
-                        .WithMany("BankAccounts")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -214,11 +213,6 @@ namespace Onboadr.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("State");
-                });
-
-            modelBuilder.Entity("Onboardr.Domain.Entities.Customer", b =>
-                {
-                    b.Navigation("BankAccounts");
                 });
 
             modelBuilder.Entity("Onboardr.Domain.Entities.State", b =>
