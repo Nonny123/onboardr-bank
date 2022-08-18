@@ -15,6 +15,7 @@ namespace Onboardr.Domain.Entities
         public string OperationType { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Amount { get; set; }
 
         [Required]

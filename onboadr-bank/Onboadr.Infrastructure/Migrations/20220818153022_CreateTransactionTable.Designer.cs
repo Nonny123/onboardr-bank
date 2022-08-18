@@ -10,7 +10,7 @@ using Onboadr.Infrastructure.Data;
 namespace Onboadr.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220817185744_CreateTransactionTable")]
+    [Migration("20220818153022_CreateTransactionTable")]
     partial class CreateTransactionTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -171,6 +171,32 @@ namespace Onboadr.Infrastructure.Migrations
                     b.ToTable("States");
                 });
 
+            modelBuilder.Entity("Onboardr.Domain.Entities.Transaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("BankAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OperationType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TransactionDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankAccountId");
+
+                    b.ToTable("Transactions");
+                });
+
             modelBuilder.Entity("Onboardr.Domain.Entities.BankAccount", b =>
                 {
                     b.HasOne("Onboardr.Domain.Entities.BankAccountType", "BankAccountType")
@@ -216,6 +242,17 @@ namespace Onboadr.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("State");
+                });
+
+            modelBuilder.Entity("Onboardr.Domain.Entities.Transaction", b =>
+                {
+                    b.HasOne("Onboardr.Domain.Entities.BankAccount", "BankAccount")
+                        .WithMany()
+                        .HasForeignKey("BankAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BankAccount");
                 });
 
             modelBuilder.Entity("Onboardr.Domain.Entities.Customer", b =>

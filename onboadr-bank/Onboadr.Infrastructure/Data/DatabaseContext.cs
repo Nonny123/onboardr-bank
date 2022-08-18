@@ -17,6 +17,7 @@ namespace Onboadr.Infrastructure.Data
         public DbSet<Lga> Lgas { get; set; }
         public DbSet<BankAccountType> BankAccountTypes { get; set; }
         public DbSet<BankAccount> BankAccounts { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
         //Seed Data
         protected override void OnModelCreating(ModelBuilder builder)
