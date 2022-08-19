@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Onboardr.Domain.DTOs;
 using Onboardr.Domain.Entities;
-using Onboadr.Infrastructure.Repository.Interface;
 using onboadr_bank.Services.Interface;
 using Onboardr.Domain.DTOs.Customer;
+using Onboardr.Domain.Interfaces;
 
 namespace onboadr_bank.Controllers
 {

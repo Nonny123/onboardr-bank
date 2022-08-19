@@ -11,10 +11,10 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Onboadr.Infrastructure.Configuration;
 using Onboadr.Infrastructure.Data;
-using Onboadr.Infrastructure.Repository.Interface;
-using Onboadr.Infrastructure.Repository.Concrete;
 using onboadr_bank.Services.Interface;
 using onboadr_bank.Services.Concrete;
+using Onboardr.Domain.Interfaces;
+using Onboadr.Infrastructure.Repository;
 
 namespace onboadr_bank
 {
