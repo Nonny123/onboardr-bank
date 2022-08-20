@@ -9,12 +9,12 @@ using Microsoft.OpenApi.Models;
 
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Onboadr.Infrastructure.Configuration;
 using Onboadr.Infrastructure.Data;
 using onboadr_bank.Services.Interface;
 using onboadr_bank.Services.Concrete;
 using Onboardr.Domain.Interfaces;
 using Onboadr.Infrastructure.Repository;
+using onboadr_bank.Helpers;
 
 namespace onboadr_bank
 {
@@ -44,11 +44,14 @@ namespace onboadr_bank
             });
 
             //Configure Automapper
-            services.AddAutoMapper(typeof(MapperInitializer));
+            services.AddAutoMapper(typeof(MappingProfiles));
 
             //configure DI/dependencies 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IGetBanksService, GetBanksService>();
+            services.AddTransient<IGetBanksService, GetBanksService>();
+            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IBankAccountService, BankAccountService>();
+            services.AddTransient<ITransactionService, TransactionService>();
 
 
             services.AddSwaggerGen(c =>

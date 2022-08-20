@@ -30,13 +30,16 @@ namespace Onboadr.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BankAccountTypeId")
                         .HasColumnType("int");
 
                     b.Property<byte?>("BankAccountTypeId1")
                         .HasColumnType("tinyint");
+
+                    b.Property<Guid>("CFId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -49,9 +52,6 @@ namespace Onboadr.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("Number")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

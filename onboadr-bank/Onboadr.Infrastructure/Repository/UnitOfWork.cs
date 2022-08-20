@@ -11,6 +11,7 @@ namespace Onboadr.Infrastructure.Repository
         private readonly DatabaseContext _context;
         private IGenericRepository<Customer> _customers;
         private IGenericRepository<BankAccount> _bankaccounts;
+        private IGenericRepository<Transaction> _transactions;
 
         public UnitOfWork(DatabaseContext context)
         {
@@ -26,6 +27,7 @@ namespace Onboadr.Infrastructure.Repository
         public IGenericRepository<Customer> Customers => _customers ??= new GenericRepository<Customer>(_context);
 
         public IGenericRepository<BankAccount> BankAccounts => _bankaccounts ??= new GenericRepository<BankAccount>(_context);
+        public IGenericRepository<Transaction> Transactions => _transactions ??= new GenericRepository<Transaction>(_context);
 
         public async Task Save()
         {

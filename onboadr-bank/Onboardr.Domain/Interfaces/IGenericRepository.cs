@@ -17,5 +17,7 @@ namespace Onboardr.Domain.Interfaces
         Task<T> Get(Expression<Func<T, bool>> expression);
 
         Task Insert(T entity);
+
+        void UpdateProperty(T entity, params Expression<Func<T, object>>[] properties);
     }
 }

@@ -11,11 +11,11 @@ namespace Onboardr.Domain.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Guid Number { get; set; }
+        public Guid CFId { get; set; }
 
         public string AccountNo { get; set; }
 
-        [Column(TypeName = "decimal(18,4)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Balance { get; set; }
 
         public DateTime CreatedDate { get; set; }

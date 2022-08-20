@@ -4,11 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Onboardr.Domain.DTOs;
 using Onboardr.Domain.Entities;
 using onboadr_bank.Services.Interface;
-using Onboardr.Domain.DTOs.Customer;
-using Onboardr.Domain.Interfaces;
+using onboadr_bank.DTOs.Customer;
 
 namespace onboadr_bank.Controllers
 {
@@ -16,7 +14,7 @@ namespace onboadr_bank.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ICustomerService _customerService;
         private readonly IGetBanksService _getBanksService;
         private readonly IMapper _mapper;
         //private IAuthFactor _authFactor;
@@ -24,20 +22,21 @@ namespace onboadr_bank.Controllers
 
 
 
-        public CustomerController(IUnitOfWork unitOfWork, IMapper mapper, IGetBanksService getBanksService)
+        public CustomerController(ICustomerService customerService, IMapper mapper, IGetBanksService getBanksService)
         {
-            _unitOfWork = unitOfWork;
+            _customerService = customerService;
             _mapper = mapper;
             _getBanksService = getBanksService;
         }
 
         [HttpGet]
+        [Route("get-customers")]
         public async Task<IActionResult> GetCustomers()
         {
             try
             {
-                var customers = await _unitOfWork.Customers.GetAll();
-                var results = _mapper.Map<IList<CustomerDTO>>(customers);
+                var customers = await _customerService.GetCustomers();
+                var results = _mapper.Map<IList<CustomerRequestDTO>>(customers);
                 return Ok(results);
             }
             catch (Exception e)
@@ -55,17 +54,18 @@ namespace onboadr_bank.Controllers
         public async Task<IActionResult> GetCustomer(int id)
         {
 
-            var customer = await _unitOfWork.Customers.Get(q => q.Id == id);
-            var result = _mapper.Map<CustomerDTO>(customer);
+            var customer = await _customerService.GetCustomer(id);
+            var result = _mapper.Map<CustomerRequestDTO>(customer);
             return Ok(result);
 
         }
 
         [HttpPost]
+        [Route("register-customer")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerDTO customerDTO)
+        public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerRequestDTO customerDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -76,8 +76,7 @@ namespace onboadr_bank.Controllers
             }
 
             var customer = _mapper.Map<Customer>(customerDTO);
-            await _unitOfWork.Customers.Insert(customer);
-            await _unitOfWork.Save();
+            await _customerService.CreateCustomer(customer);
 
             return CreatedAtRoute("GetCustomer", new { id = customer.Id }, customer);
 
@@ -93,7 +92,7 @@ namespace onboadr_bank.Controllers
         //}
 
         [HttpGet]
-        [Route("get_banks")]
+        [Route("get_bank-names")]
         public async Task<IActionResult> GetBanks()
         {
             try

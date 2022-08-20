@@ -49,5 +49,22 @@ namespace Onboadr.Infrastructure.Repository
         {
             await _db.AddAsync(entity);
         }
+
+        public void UpdateProperty(T entity, params Expression<Func<T, object>>[] properties)
+        {
+            try
+            {
+                _db.Attach(entity);
+                foreach (var property in properties)
+                    _context.Entry(entity).Property(property).IsModified = true;
+                //await db.SaveChangesAsync();
+                //return true;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("UpdateDbEntryAsync exception: " + ex.Message);
+                //return false;
+            }
+        }
     }
 }

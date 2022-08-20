@@ -8,6 +8,7 @@ namespace Onboardr.Domain.Interfaces
     {
         IGenericRepository<Customer> Customers { get; }
         IGenericRepository<BankAccount> BankAccounts { get; }
+        IGenericRepository<Transaction> Transactions { get; }
         Task Save();
     }
 }
