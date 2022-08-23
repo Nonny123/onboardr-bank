@@ -26,6 +26,11 @@ namespace onboadr_bank.Services.Concrete
             return await _unitOfWork.Transactions.GetAll();
         }
 
+        public async Task<IList<Transaction>> GetRecentTransactions(int count)
+        {
+            return await _unitOfWork.Transactions.GetRecent(null, x => x.OrderByDescending(t => t.TransactionDate),count);
+        }
+
 
         public async Task<Transaction> GetTransaction(int bankAccountId)
         {

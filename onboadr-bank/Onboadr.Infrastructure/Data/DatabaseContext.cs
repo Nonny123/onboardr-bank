@@ -18,6 +18,7 @@ namespace Onboadr.Infrastructure.Data
         public DbSet<BankAccountType> BankAccountTypes { get; set; }
         public DbSet<BankAccount> BankAccounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<OTPInfo> OTPInfos { get; set; }
 
         //Seed Data
         protected override void OnModelCreating(ModelBuilder builder)

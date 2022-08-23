@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using onboadr_bank.DTOs.BankAccount;
 using onboadr_bank.DTOs.Customer;
+using onboadr_bank.DTOs.Transaction;
 using Onboardr.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace onboadr_bank.Helpers
             CreateMap<Customer, CreateCustomerRequestDTO>().ReverseMap();
             CreateMap<BankAccount, BankAccountRequestDTO>().ReverseMap();
             CreateMap<BankAccount, CreateBankAccountRequestDTO>().ReverseMap();
+            CreateMap<Transaction, TransactionsRequestDTO>().ReverseMap();
+            
         }
     }
 }

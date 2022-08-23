@@ -11,6 +11,8 @@ namespace onboadr_bank.Services.Interface
         Task<IList<Transaction>> GetTransactions();
         Task<Transaction> GetTransaction(int bankAccountId);
 
+        Task<IList<Transaction>> GetRecentTransactions(int count);
+
         Task CreateTransaction(Transaction transaction);
     }
 }

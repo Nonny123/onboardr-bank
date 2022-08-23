@@ -1,4 +1,5 @@
-﻿using onboadr_bank.Services.Interface;
+﻿using Ardalis.GuardClauses;
+using onboadr_bank.Services.Interface;
 using Onboardr.Domain.Entities;
 using Onboardr.Domain.Interfaces;
 using System;
@@ -42,6 +43,10 @@ namespace onboadr_bank.Services.Concrete
 
         public async Task Deposit(string accountNo, decimal amountToDeposit)
         {
+            Guard.Against.NegativeOrZero(amountToDeposit, nameof(amountToDeposit));
+            Guard.Against.NullOrEmpty(accountNo, nameof(accountNo));
+            Guard.Against.Null(amountToDeposit, nameof(amountToDeposit));
+
             var account = await GetBankAccount(accountNo);
             account.Balance += amountToDeposit;
             _unitOfWork.BankAccounts.UpdateProperty(account, x => x.Balance);
@@ -63,7 +68,9 @@ namespace onboadr_bank.Services.Concrete
 
         public async Task Withdraw(string accountNo, decimal amountToWithdraw)
         {
-            //Add Guard Clause Here
+            Guard.Against.NegativeOrZero(amountToWithdraw, nameof(amountToWithdraw));
+            Guard.Against.NullOrEmpty(accountNo, nameof(accountNo));
+            Guard.Against.Null(amountToWithdraw, nameof(amountToWithdraw));
 
 
             var account = await GetBankAccount(accountNo);
@@ -85,7 +92,7 @@ namespace onboadr_bank.Services.Concrete
 
         }
 
-        public static string GenerateAccountNo(int length)
+        private static string GenerateAccountNo(int length)
         {
             var random = new Random();
             string s = string.Empty;

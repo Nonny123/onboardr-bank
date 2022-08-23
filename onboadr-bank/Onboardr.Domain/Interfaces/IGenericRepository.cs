@@ -14,6 +14,11 @@ namespace Onboardr.Domain.Interfaces
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null
         );
 
+        Task<IList<T>> GetRecent(
+           Expression<Func<T, bool>> expression = null,
+           Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, int count = 5
+       );
+
         Task<T> Get(Expression<Func<T, bool>> expression);
 
         Task Insert(T entity);

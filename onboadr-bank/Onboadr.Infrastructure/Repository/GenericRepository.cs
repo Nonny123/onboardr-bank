@@ -45,6 +45,23 @@ namespace Onboadr.Infrastructure.Repository
             return await query.AsNoTracking().ToListAsync();
         }
 
+        public async Task<IList<T>> GetRecent(Expression<Func<T, bool>> expression = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, int count = 5)
+        {
+            IQueryable<T> query = _db;
+
+            if (expression != null)
+            {
+                query = query.Where(expression);
+            }
+
+            if (orderBy != null)
+            {
+                query = orderBy(query).Take(count);
+            }
+
+            return await query.AsNoTracking().ToListAsync();
+        }
+
         public async Task Insert(T entity)
         {
             await _db.AddAsync(entity);
@@ -57,13 +74,12 @@ namespace Onboadr.Infrastructure.Repository
                 _db.Attach(entity);
                 foreach (var property in properties)
                     _context.Entry(entity).Property(property).IsModified = true;
-                //await db.SaveChangesAsync();
-                //return true;
+               
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("UpdateDbEntryAsync exception: " + ex.Message);
-                //return false;
+                
             }
         }
     }

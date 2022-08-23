@@ -7,5 +7,16 @@ namespace onboadr_bank.DTOs.Transaction
 {
     public class TransactionsRequestDTO
     {
+        public int Id { get; set; }
+
+        public string OperationType { get; set; }
+
+        
+        public decimal Amount { get; set; }
+
+        public DateTime TransactionDate { get; set; }
+
+        public int BankAccountId { get; set; }
+       
     }
 }

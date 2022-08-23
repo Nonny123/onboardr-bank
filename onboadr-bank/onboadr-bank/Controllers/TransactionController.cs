@@ -16,14 +16,38 @@ namespace onboadr_bank.Controllers
         private readonly ITransactionService _transactionService;
         private readonly IMapper _mapper;
 
+        public TransactionController(ITransactionService transactionService, IMapper mapper)
+        {
+            _transactionService = transactionService;
+            _mapper = mapper;
+        }
+
         [HttpGet]
-        [Route("get-transactions")]
-        public async Task<IActionResult> GetBankAccounts()
+        [Route("get-all-transactions")]
+        public async Task<IActionResult> GetTransactions()
         {
             try
             {
-                var bankAccounts = await _transactionService.GetTransactions();
-                var results = _mapper.Map<IList<TransactionsRequestDTO>>(bankAccounts);
+                var transactions = await _transactionService.GetTransactions();
+                var results = _mapper.Map<IList<TransactionsRequestDTO>>(transactions);
+                return Ok(results);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, "Internal Server Error. Please Try Again Later.");
+            }
+        }
+
+
+        [HttpGet]
+        [Route("get-recent-transactions")]
+        public async Task<IActionResult> GetRecentTransactions(int count)
+        {
+            try
+            {
+                var recentTransactions = await _transactionService.GetRecentTransactions(count);
+                var results = _mapper.Map<IList<TransactionsRequestDTO>>(recentTransactions);
                 return Ok(results);
             }
             catch (Exception e)
